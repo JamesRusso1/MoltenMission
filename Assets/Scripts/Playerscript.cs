@@ -1,0 +1,85 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Playerscript : MonoBehaviour
+{
+    public CharacterController CC;
+    public float Speed;
+
+    //turning
+    public float Sensitivity;
+    public Transform CamTransform;
+    private float camRotation = 0f;
+
+    //jump
+    public float VerticalSpeed;
+    public float JumpSpeed;
+    public float Gravity;
+
+    public bool CanMove;
+
+    //items
+    private float Boost = 0f;
+    void Start()
+    {
+        //lock cursor
+        Cursor.lockState = CursorLockMode.Locked;
+
+        //start movement
+        CanMove = true;
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(CanMove == true)
+        {
+            // X/Z movement
+            Vector3 movement = Vector3.zero;
+
+            float forwardMovement = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
+            float sideMovement = Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
+
+            movement += (transform.forward * forwardMovement) + (transform.right * sideMovement);
+
+            //Camera Rotation/sensitivity
+            float mouseY = Input.GetAxis("Mouse Y") * Sensitivity;
+            camRotation -= mouseY;
+            camRotation = Mathf.Clamp(camRotation, -60f, 70f);
+            CamTransform.localRotation = Quaternion.Euler(new Vector3(camRotation, 0f, 0f));
+
+            float mouseX = Input.GetAxis("Mouse X") * Sensitivity;
+            transform.rotation = Quaternion.Euler(transform.eulerAngles + new Vector3(0f, mouseX, 0f));
+
+            //Jump and Ground check
+            if (CC.isGrounded)
+            {
+                VerticalSpeed = 0f;
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    VerticalSpeed = JumpSpeed + Boost;
+                }
+            }
+
+            VerticalSpeed += Gravity * Time.deltaTime;
+            movement += transform.up * VerticalSpeed * Time.deltaTime;
+
+            CC.Move(movement);
+        }
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        //collect Jump Boost
+        Boostscript bs = hit.gameObject.GetComponent<Boostscript>();
+        if (bs)
+        {
+            Destroy(hit.gameObject);
+
+            Boost = 8f;
+        }
+        
+    }
+}
