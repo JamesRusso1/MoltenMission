@@ -21,6 +21,9 @@ public class Playerscript : MonoBehaviour
 
     //items
     private float Boost = 0f;
+
+    //UI
+    public GameObject Winscreen; 
     void Start()
     {
         //lock cursor
@@ -29,6 +32,8 @@ public class Playerscript : MonoBehaviour
         //start movement
         CanMove = true;
 
+        //UI
+        Winscreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -79,6 +84,20 @@ public class Playerscript : MonoBehaviour
             Destroy(hit.gameObject);
 
             Boost = 8f;
+        }
+
+        //death
+        Lavascript la = hit.gameObject.GetComponent<Lavascript>();
+        if (la)
+        {
+            CanMove = false;
+        }
+
+        //Victory
+        Shipscript sh = hit.gameObject.GetComponent<Shipscript>();
+        if (sh)
+        {
+            Winscreen.SetActive(true);
         }
         
     }
