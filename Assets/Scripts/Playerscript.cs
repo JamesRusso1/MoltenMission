@@ -22,6 +22,8 @@ public class Playerscript : MonoBehaviour
     //items
     private float Boost = 0f;
 
+    public GameObject ArmCannon;
+
     //UI
     public GameObject Winscreen; 
     void Start()
@@ -31,6 +33,9 @@ public class Playerscript : MonoBehaviour
 
         //start movement
         CanMove = true;
+
+        //items
+        ArmCannon.SetActive(false);
 
         //UI
         Winscreen.SetActive(false);
@@ -84,6 +89,15 @@ public class Playerscript : MonoBehaviour
             Destroy(hit.gameObject);
 
             Boost = 8f;
+        }
+
+        //collect arm cannon
+        Cannonscript ca = hit.gameObject.GetComponent<Cannonscript>();
+        if (ca)
+        {
+            Destroy(hit.gameObject);
+
+            ArmCannon.SetActive(true);
         }
 
         //death
