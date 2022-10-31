@@ -25,6 +25,7 @@ public class Playerscript : MonoBehaviour
     public GameObject ArmCannon;
 
     //UI
+    public GameObject Target;
     public GameObject Winscreen; 
     void Start()
     {
@@ -38,6 +39,7 @@ public class Playerscript : MonoBehaviour
         ArmCannon.SetActive(false);
 
         //UI
+        Target.SetActive(false);
         Winscreen.SetActive(false);
     }
 
@@ -98,6 +100,7 @@ public class Playerscript : MonoBehaviour
             Destroy(hit.gameObject);
 
             ArmCannon.SetActive(true);
+            Target.SetActive(true);
         }
 
         //death
