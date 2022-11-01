@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Playerscript : MonoBehaviour
 {
@@ -27,8 +28,12 @@ public class Playerscript : MonoBehaviour
     //UI
     public GameObject Target;
     public GameObject Winscreen;
+    public GameObject Losescreen;
     public GameObject BoostUI;
     public GameObject CannonUI;
+
+    //health bar
+    public Image Health;
     void Start()
     {
         //lock cursor
@@ -43,6 +48,7 @@ public class Playerscript : MonoBehaviour
         //UI
         Target.SetActive(false);
         Winscreen.SetActive(false);
+        Losescreen.SetActive(false);
         BoostUI.SetActive(false);
         CannonUI.SetActive(false);
     }
@@ -115,7 +121,19 @@ public class Playerscript : MonoBehaviour
         Lavascript la = hit.gameObject.GetComponent<Lavascript>();
         if (la)
         {
+            Health.fillAmount -= Time.deltaTime * 2f;
+        }
+        else
+        {
+            Health.fillAmount += Time.deltaTime * 0.1f;
+        }
+
+        //Lose
+        if (Health.fillAmount == 0f)
+        {
             CanMove = false;
+
+            Losescreen.SetActive(true);
         }
 
         //Victory
