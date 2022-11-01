@@ -26,7 +26,9 @@ public class Playerscript : MonoBehaviour
 
     //UI
     public GameObject Target;
-    public GameObject Winscreen; 
+    public GameObject Winscreen;
+    public GameObject BoostUI;
+    public GameObject CannonUI;
     void Start()
     {
         //lock cursor
@@ -41,6 +43,8 @@ public class Playerscript : MonoBehaviour
         //UI
         Target.SetActive(false);
         Winscreen.SetActive(false);
+        BoostUI.SetActive(false);
+        CannonUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -91,6 +95,8 @@ public class Playerscript : MonoBehaviour
             Destroy(hit.gameObject);
 
             Boost = 8f;
+
+            BoostUI.SetActive(true);
         }
 
         //collect arm cannon
@@ -101,6 +107,8 @@ public class Playerscript : MonoBehaviour
 
             ArmCannon.SetActive(true);
             Target.SetActive(true);
+
+            CannonUI.SetActive(true);
         }
 
         //death
