@@ -117,15 +117,19 @@ public class Playerscript : MonoBehaviour
             CannonUI.SetActive(true);
         }
 
-        //death
+        //Lava
         Lavascript la = hit.gameObject.GetComponent<Lavascript>();
         if (la)
         {
             Health.fillAmount -= Time.deltaTime * 2f;
+            Speed = 3;
+            VerticalSpeed = 6;
         }
         else
         {
             Health.fillAmount += Time.deltaTime * 0.1f;
+            Speed = 7;
+            VerticalSpeed = 12;
         }
 
         //Lose
