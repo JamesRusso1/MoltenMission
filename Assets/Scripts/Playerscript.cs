@@ -34,6 +34,10 @@ public class Playerscript : MonoBehaviour
 
     //health bar
     public Image Health;
+
+    //lava state
+    private bool InLava;
+
     void Start()
     {
         //lock cursor
@@ -51,6 +55,9 @@ public class Playerscript : MonoBehaviour
         Losescreen.SetActive(false);
         BoostUI.SetActive(false);
         CannonUI.SetActive(false);
+
+        //Not in lava
+        InLava = false;
     }
 
     // Update is called once per frame
@@ -90,6 +97,19 @@ public class Playerscript : MonoBehaviour
 
             CC.Move(movement);
         }
+
+        //lava state
+        if (InLava == true)
+        {
+            Speed = 3;
+            JumpSpeed = 7;
+        }
+
+        if (InLava == false)
+        {
+            Speed = 7;
+            JumpSpeed = 12;
+        }
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -117,19 +137,19 @@ public class Playerscript : MonoBehaviour
             CannonUI.SetActive(true);
         }
 
-        //Lava
+        //Lava State
         Lavascript la = hit.gameObject.GetComponent<Lavascript>();
         if (la)
         {
             Health.fillAmount -= Time.deltaTime * 2f;
-            Speed = 3;
-            VerticalSpeed = 6;
+
+            InLava = true;
         }
         else
         {
             Health.fillAmount += Time.deltaTime * 0.1f;
-            Speed = 7;
-            VerticalSpeed = 12;
+
+            InLava = false;
         }
 
         //Lose
