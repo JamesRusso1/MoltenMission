@@ -31,6 +31,7 @@ public class Playerscript : MonoBehaviour
     public GameObject Losescreen;
     public GameObject BoostUI;
     public GameObject CannonUI;
+    public GameObject ArmorUI;
 
     //health bar
     public Image Health;
@@ -55,6 +56,7 @@ public class Playerscript : MonoBehaviour
         Losescreen.SetActive(false);
         BoostUI.SetActive(false);
         CannonUI.SetActive(false);
+        ArmorUI.SetActive(false);
 
         //Not in lava
         InLava = false;
@@ -125,7 +127,7 @@ public class Playerscript : MonoBehaviour
             BoostUI.SetActive(true);
         }
 
-        //collect arm cannon
+        //collect Arm Cannon
         Cannonscript ca = hit.gameObject.GetComponent<Cannonscript>();
         if (ca)
         {
@@ -135,6 +137,17 @@ public class Playerscript : MonoBehaviour
             Target.SetActive(true);
 
             CannonUI.SetActive(true);
+        }
+
+        //collect Armor
+        Armorscript ar = hit.gameObject.GetComponent<Armorscript>();
+        if (ar)
+        {
+            Destroy(hit.gameObject);
+
+            ;
+
+            ArmorUI.SetActive(true);
         }
 
         //Lava State
