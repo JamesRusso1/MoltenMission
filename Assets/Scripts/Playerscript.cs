@@ -102,7 +102,7 @@ public class Playerscript : MonoBehaviour
         if (InLava == true)
         {
             Speed = 3;
-            JumpSpeed = 7;
+            JumpSpeed = 6;
         }
 
         if (InLava == false)
@@ -141,7 +141,7 @@ public class Playerscript : MonoBehaviour
         Lavascript la = hit.gameObject.GetComponent<Lavascript>();
         if (la)
         {
-            Health.fillAmount -= Time.deltaTime * 2f;
+            Health.fillAmount -= Time.deltaTime * 1.8f;
 
             InLava = true;
         }
