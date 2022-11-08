@@ -22,6 +22,7 @@ public class Playerscript : MonoBehaviour
 
     //items
     private float Boost = 0f;
+    private float HealthLoss = 1.8f;
 
     public GameObject ArmCannon;
 
@@ -144,8 +145,7 @@ public class Playerscript : MonoBehaviour
         if (ar)
         {
             Destroy(hit.gameObject);
-
-            ;
+            HealthLoss = 1f;
 
             ArmorUI.SetActive(true);
         }
@@ -154,7 +154,7 @@ public class Playerscript : MonoBehaviour
         Lavascript la = hit.gameObject.GetComponent<Lavascript>();
         if (la)
         {
-            Health.fillAmount -= Time.deltaTime * 1.8f;
+            Health.fillAmount -= Time.deltaTime * HealthLoss;
 
             InLava = true;
         }
