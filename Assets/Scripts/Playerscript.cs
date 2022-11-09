@@ -161,7 +161,7 @@ public class Playerscript : MonoBehaviour
         }
         else
         {
-            Health.fillAmount += Time.deltaTime * 0.1f;
+            Health.fillAmount += Time.deltaTime * 0.3f;
 
             InLava = false;
         }
