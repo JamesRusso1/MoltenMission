@@ -148,6 +148,7 @@ public class Playerscript : MonoBehaviour
             HealthLoss = 1f;
 
             ArmorUI.SetActive(true);
+            Health.color = Color.blue;
         }
 
         //Lava State
